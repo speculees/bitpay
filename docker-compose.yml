@@ -6,12 +6,17 @@ services:
       - type: volume
         source: .db-data
         target: /data
-  bitcoin-node:
+  bitcoin-node-0:
+    image: bitcoindevelopernetwork/bitcoind-regtest
+    ports:
+      - "18555:18444"
+  bitcoin-node-1:
     image: btcpayserver/bitcoin:24.0.1-1
     environment:
       BITCOIN_NETWORK: regtest
       BITCOIN_EXTRA_ARGS: |
         disablewallet=1
+        addnode=bitpay-bitcoin-node-0-1:18555
     volumes:
       - type: volume
         source: .bitcoin
