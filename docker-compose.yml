@@ -1,0 +1,34 @@
+version: "3.9"
+services:
+  mongodb:
+    image: mongo:3.6.23
+    volumes:
+      - type: volume
+        source: .db-data
+        target: /data
+  bitcoin-node:
+    image: btcpayserver/bitcoin:24.0.1-1
+    environment:
+      BITCOIN_NETWORK: regtest
+      BITCOIN_EXTRA_ARGS: |
+        disablewallet=1
+    volumes:
+      - type: volume
+        source: .bitcoin
+        target: /data
+  bitcore-node:
+    image: bitcore-node
+    ports:
+      - "3000:3000"
+  bitcore-wallet-service:
+    image: bitcore-wallet-service
+    ports:
+      - "3232:3232"
+    tty: true
+  bitcore-wallet:
+    image: bitcore-wallet
+    network_mode: host
+    tty: true
+volumes:
+  .db-data:
+  .bitcoin:

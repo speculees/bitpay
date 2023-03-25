@@ -1,0 +1,32 @@
+{
+  "bitcoreNode": {
+    "dbHost": "mongodb",
+    "modules": ["./bitcoin"],
+    "services": {
+      "api": {
+        "wallets": {
+          "allowCreationBeforeCompleteSync": true
+        }
+      }
+    },
+    "chains": {
+      "BTC": {
+        "regtest": {
+          "chainSource": "p2p",
+          "trustedPeers": [
+            {
+              "host": "bitcoin-node",
+              "port": 18444
+            }
+          ],
+          "rpc": {
+            "host": "bitcoin-node",
+            "port": 18445,
+            "username": "",
+            "password": ""
+          }
+        }
+      }
+    }
+  }
+}
