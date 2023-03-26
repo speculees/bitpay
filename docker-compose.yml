@@ -5,21 +5,31 @@ services:
     volumes:
       - type: volume
         source: .db-data
-        target: /data
+        target: /root.bitcoin
   bitcoin-node-0:
-    image: bitcoindevelopernetwork/bitcoind-regtest
-    ports:
-      - "18555:18444"
+    image: btcpayserver/bitcoin:24.0.1-1
+    environment:
+      BITCOIN_NETWORK: regtest
+      BITCOIN_EXTRA_ARGS: |
+        server=1
+        rpcuser=alice
+        rpcpassword=gUzyr0i3R2h5wW7R7LfZgRvV0Z7GxbIehWW562tqtFA
+    volumes:
+      - type: volume
+        source: .bitcoin-0
+        target: /root.bitcoin
+    # ports:
+    #   - "18555:18444"
   bitcoin-node-1:
     image: btcpayserver/bitcoin:24.0.1-1
     environment:
       BITCOIN_NETWORK: regtest
       BITCOIN_EXTRA_ARGS: |
         disablewallet=1
-        addnode=bitpay-bitcoin-node-0-1:18555
+        addnode=bitpay-bitcoin-node-0-1:18444
     volumes:
       - type: volume
-        source: .bitcoin
+        source: .bitcoin-1
         target: /data
   bitcore-node:
     image: bitcore-node
@@ -36,4 +46,5 @@ services:
     tty: true
 volumes:
   .db-data:
-  .bitcoin:
+  .bitcoin-0:
+  .bitcoin-1:
