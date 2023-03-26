@@ -16,6 +16,16 @@ This project is a bitcore regtest project. It is sandboxed in Docker containers 
 
 `docker-compose up`
 
+Once docker containers are active you can mount the bitcoin-node-0 and mine blocks
+
+`bitcoin-cli -generate 1000`
+
+Once you have some coin, you can then use "bitcoin core" to send coins to your bitcore wallets
+
+If you get an error, try removing /root/.bitcoin folder and createing a soft link to data instead
+
+`ln -s /data /root/.bitcoin`
+
 ### Start bws
 
 `docker exec bitpay-bitcore-wallet-service-1 /home/bitpay/bitcore/packages/bitcore-wallet-service/start.sh`
