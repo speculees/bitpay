@@ -15,12 +15,12 @@
           "chainSource": "p2p",
           "trustedPeers": [
             {
-              "host": "bitcoin-node",
+              "host": "bitcoin-node-1",
               "port": 18444
             }
           ],
           "rpc": {
-            "host": "bitcoin-node",
+            "host": "bitcoin-node-1",
             "port": 18445,
             "username": "",
             "password": ""
