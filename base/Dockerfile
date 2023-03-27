@@ -7,9 +7,3 @@ RUN set -eu \
   && curl -fsSL https://deb.nodesource.com/setup_18.x | bash - \
   && apt-get install -yq nodejs
 
-#clone monorepo
-WORKDIR /home/bitpay
-RUN git clone https://github.com/bitpay/bitcore.git \
-  && cd bitcore \
-  && npm install
-

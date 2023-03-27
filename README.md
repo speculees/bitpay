@@ -4,9 +4,7 @@ This project is a bitcore regtest project. It is sandboxed in Docker containers 
 
 ### Build images
 
-`docker build -t bitcore ./bitcore`
-
-`docker build -t bitcore-wallet ./bitcore-wallet`
+`docker build -t base ./base`
 
 `docker build -t bitcore-wallet-service ./bitcore-wallet-service`
 
@@ -18,29 +16,13 @@ This project is a bitcore regtest project. It is sandboxed in Docker containers 
 
 Once docker containers are active you can mount the bitcoin-node-0 and mine blocks
 
+First create a default wallet
+`bitcoin-cli createwallet default`
+
+Then generate some number of blocks
 `bitcoin-cli -generate 1000`
-
-Once you have some coin, you can then use "bitcoin core" to send coins to your bitcore wallets
-
-If you get an error, try removing /root/.bitcoin folder and createing a soft link to data instead
-
-`ln -s /data /root/.bitcoin`
 
 ### Start bws
 
 `docker exec bitpay-bitcore-wallet-service-1 /home/bitpay/bitcore/packages/bitcore-wallet-service/start.sh`
 
-### Connect to bitcore-wallet
-
-`docker exec -ti bitpay-bitcore-wallet-1 /bin/bash`
-
-execute scripts from bitcore wallet bin
-
-### TODO
-
-alice.create-wallet.sh
-bob.create-wallet.sh
-alice.toBob.sh
-bob.toAlice.sh
-
-scripts that send docker instructions to run bitcore-wallet scripts

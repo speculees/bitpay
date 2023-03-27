@@ -9,6 +9,7 @@ services:
   bitcoin-node-0:
     image: btcpayserver/bitcoin:24.0.1-1
     environment:
+      HOME: /home/bitcoin
       BITCOIN_NETWORK: regtest
       BITCOIN_EXTRA_ARGS: |
         server=1
@@ -18,11 +19,10 @@ services:
       - type: volume
         source: .bitcoin-0
         target: /root.bitcoin
-    # ports:
-    #   - "18555:18444"
   bitcoin-node-1:
     image: btcpayserver/bitcoin:24.0.1-1
     environment:
+      HOME: /home/bitcoin
       BITCOIN_NETWORK: regtest
       BITCOIN_EXTRA_ARGS: |
         disablewallet=1
@@ -35,15 +35,19 @@ services:
     image: bitcore-node
     ports:
       - "3000:3000"
+    tty: true
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3000/api/BTC/regtest/block/tip"]
+      interval: 5s
+      timeout: 10s
+      retries: 5
   bitcore-wallet-service:
     image: bitcore-wallet-service
     ports:
       - "3232:3232"
-    tty: true
-  bitcore-wallet:
-    image: bitcore-wallet
-    network_mode: host
-    tty: true
+    depends_on:
+      bitcore-node:
+        condition: service_healthy
 volumes:
   .db-data:
   .bitcoin-0:
