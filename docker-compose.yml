@@ -48,6 +48,10 @@ services:
     depends_on:
       bitcore-node:
         condition: service_healthy
+  wallet:
+    image: zmscode/bitpay-copay
+    ports:
+      - "8100:8100"
 volumes:
   .db-data:
   .bitcoin-0:

@@ -4,25 +4,31 @@ This project is a bitcore regtest project. It is sandboxed in Docker containers 
 
 ### Build images
 
-`docker build -t base ./base`
-
-`docker build -t bitcore-wallet-service ./bitcore-wallet-service`
-
-`docker build -t bitcore-node ./bitcore-node`
+`./build.sh`
 
 ### Run containers
 
 `docker-compose up`
 
-Once docker containers are active you can mount the bitcoin-node-0 and mine blocks
+### Usage
 
-First create a default wallet
-`bitcoin-cli createwallet default`
+Go to `localhost:8100`.
+This is a bitpay/copay wallet. In it create a new personal wallet. Imagine that this user is Alice. Name it (ex: Alice) and expand advanced options. Select testnet and in wallet service URL set `http://localhost:3232/api/bws`. Contine, and skip password setup. You don't need it for regtest/testnet. Click on the receive button in the footer, and copy the address in a note.
 
-Then generate some number of blocks
+Mount the bitcoin-node-0.
+`docker exec -ti bitpay-bitcoin-node-0-1 /bin/bash`
+
+First create a wallet. Imagine this is a second user (Bob).
+`bitcoin-cli createwallet bob`
+This comand should return this
+`{
+  "name": "bob",
+  "warning": ""
+}`
+
+Then generate some number of blocks.
 `bitcoin-cli -generate 1000`
 
-### Start bws
-
-`docker exec bitpay-bitcore-wallet-service-1 /home/bitpay/bitcore/packages/bitcore-wallet-service/start.sh`
-
+Once the blocks are generated you can now send them to Alice.
+`bitcoin-cli sendtoaddress "insert_address_you_copied_from_alice" 0.1 "drinks" "room77" true true null "unset" null 1.1`
+Signature should be returned. After refresing the Bitpay wallet in `localhost:8100`, notice that Alice now has 0.099999, and not 0.1 BTC. This is becuse the fee was substracted from the amount Bob sent to Alice.
