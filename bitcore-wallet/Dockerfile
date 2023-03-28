@@ -1,4 +1,8 @@
-FROM bitcore as bitcore
+FROM base as base
 FROM debian
-COPY --from=bitcore / /
-WORKDIR /home/bitpay/bitcore/packages/bitcore-wallet/bin
+
+COPY --from=base / /
+
+RUN npm i bitcore-wallet -g
+
+WORKDIR /usr/lib/node_modules/bitcore-wallet/bin

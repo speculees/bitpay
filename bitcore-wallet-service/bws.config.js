@@ -26,18 +26,18 @@ module.exports = {
     }
   },
   messageBrokerOpts: {
-    //  To use message broker server, uncomment this:
-    //messageBrokerServer: {
-    //  url: 'http://localhost:3380'
-    //}
+  //     To use message broker server, uncomment this:
+    messageBrokerServer: {
+      url: 'http://localhost:3380'
+    }
   },
   blockchainExplorerOpts: {
     btc: {
       livenet: {
-        url: 'bitcore:3000'
+        url: 'https://api.bitcore.io'
       },
       testnet: {
-        url: 'bitcore:3000',
+	url: 'http://bitcore-node:3000',
         regtestEnabled: true
       }
     },

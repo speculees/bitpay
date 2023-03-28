@@ -1,13 +1,14 @@
-FROM bitcore as bitcore
+FROM base as base
 FROM debian
 
-COPY --from=bitcore / /
+COPY --from=base / /
 
-WORKDIR /home/bitpay/bitcore
+RUN npm i bitcore-node -g
+
+ENV BITCORE_NODE=/usr/lib/node_modules/bitcore-node
+
+COPY bitcore.config.json ${BITCORE_NODE}/bitcore.config.json
 
 EXPOSE 3000
-
-COPY bitcore.config.json bitcore.config.json
-
 ENTRYPOINT ["/usr/bin/dumb-init", "--"]
-CMD npm run node
+CMD node ${BITCORE_NODE}/build/src/server.js
