@@ -15,15 +15,15 @@
           "chainSource": "p2p",
           "trustedPeers": [
             {
-              "host": "bitcoin-node-1",
+              "host": "bitpay-bitcoin-node-0-1",
               "port": 18444
             }
           ],
           "rpc": {
-            "host": "bitcoin-node-1",
-            "port": 18445,
-            "username": "",
-            "password": ""
+            "host": "bitpay-bitcoin-node-0-1",
+            "port": 18443,
+            "username": "alice",
+            "password": "gUzyr0i3R2h5wW7R7LfZgRvV0Z7GxbIehWW562tqtFA"
           }
         }
       }
