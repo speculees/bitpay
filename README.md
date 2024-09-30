@@ -2,7 +2,7 @@
 
 ## Purpose
 
-This project is a Bitcore regtest project. It is sandboxed in Docker containers for easy installation process. After the setup this allows you to send transactions to bitcoin node with hopefully minimal effort.
+This project is a Bitcore regtest sandbox project. It uses Docker containers for easy installation process. After the setup this allows you to send transactions to bitcoin node with hopefully minimal effort.
 
 ## Build images
 
